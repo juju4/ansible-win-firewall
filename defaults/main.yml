@@ -1,0 +1,92 @@
+---
+
+## Experimental. issue with ansible win_firewall_rule module
+win_firewall: true
+#win_firewall: true
+#win_fw_default_action: 'allow'
+win_fw_default_action: 'block'
+win_fw_program_allowed_out_public:
+  - '%ProgramFiles%\bitbeans\Simple DNSCrypt\dnscrypt-proxy\dnscrypt-proxy.exe'
+  - '%ProgramFiles%\bitbeans\Simple DNSCrypt\dnscrypt-proxy\dnscrypt-proxy-secondary.exe'
+win_fw_program_blocked_out_public:
+  - "C:\\Program Files\\Microsoft Office\\Office{{ win_msoffice_version_short }}\\winword.exe"
+  - "C:\\Program Files\\Microsoft Office\\Office{{ win_msoffice_version_short }}\\excel.exe"
+  - "C:\\Program Files\\Microsoft Office\\Office{{ win_msoffice_version_short }}\\powerpoint.exe"
+  - "C:\\Program Files\\Microsoft Office\\Office{{ win_msoffice_version_short }}\\msaccess.exe"
+  - '%SystemRoot%\System32\wscript.exe'
+  - '%SystemRoot%\Syswow64\wscript.exe'
+  - '%SystemRoot%\System32\cscript.exe'
+  - '%SystemRoot%\Syswow64\cscript.exe'
+  - '%SystemRoot%\system32\mshta.exe'
+  - '%SystemRoot%\SysWOW64\mshta.exe'
+  - '%SystemRoot%\system32\WindowsPowerShell\v1.0\powershell.exe'
+  - '%SystemRoot%\SysWOW64\WindowsPowerShell\v1.0\powershell.exe'
+  - '%SystemRoot%\system32\cmd.exe'
+  - '%SystemRoot%\SysWOW64\cmd.exe'
+  - '%SystemRoot%\system32\notepad.exe'
+  - '%SystemRoot%\SysWOW64\notepad.exe'
+  - '%SystemRoot%\system32\calc.exe'
+  - '%SystemRoot%\SysWOW64\calc.exe'
+  - '%SystemRoot%\system32\ftp.exe'
+  - '%SystemRoot%\SysWOW64\ftp.exe'
+## https://securityinaction.wordpress.com/2016/04/24/windows-applocker-bypass-disclosed/
+  - '%SystemRoot%\system32\regsvr32.exe'
+  - '%SystemRoot%\SysWOW64\regsvr64.exe'
+## https://github.com/MHaggis/hunt-detect-prevent/blob/master/Prevention/Windows%20Firewall.md
+  - '%SystemRoot%\system32\verclsid.exe'
+  - '%SystemRoot%\syswow64\verclsid.exe'
+## https://labs.nettitude.com/blog/fun-with-windows-binaries-application-whitelist-bypass-using-msiexec/
+  - '%SystemRoot%\system32\msiexec.exe'
+  - '%SystemRoot%\SysWOW64\msiexec.exe'
+#
+  - '%SystemRoot%\Microsoft.NET\Framework\v4.0.30319\InstallUtil.exe'
+  - '%SystemRoot%\Microsoft.NET\Framework64\v4.0.30319\InstallUtil.exe'
+  - '%SystemRoot%\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe'
+  - '%SystemRoot%\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe'
+  - '%SystemRoot%\Microsoft.NET\Framework\v4.0.30319\regasm.exe'
+  - '%SystemRoot%\Microsoft.NET\Framework64\v4.0.30319\regasm.exe'
+## does it work? accepted in ansible 2.3, nok in 2.4
+##  https://social.technet.microsoft.com/Forums/windows/en-US/9d0f3230-2ead-47ee-9233-d5e94df98b90/using-a-wildcard-path-for-a-firewall-program-exception?forum=w7itprosecurity
+##  http://www.404techsupport.com/2009/01/09/windows-firewall-exceptions-through-group-policy/
+#  - '%UserProfile%\*.*'
+win_fw_ports_allowed_out_public: []
+win_fw_ports_blocked_out_public:
+  - 25
+  - 587
+  - 53
+  - 123
+  - 6881-6889
+## smb/llmnr?
+  - 137
+  - 138
+  - 5353
+  - 5355
+win_fw_ports_allowed_in_public: []
+win_fw_ports_blocked_in_public:
+  - 25
+  - 587
+  - 80
+  - 443
+  - 8080
+  - 53
+  - 123
+  - 6881-6889
+win_fw_program_allowed_web_out_public:
+  - '%ProgramFiles\firefox.exe'
+  - '%ProgramFiles%\Google\Chrome\Application\chrome.exe'
+  - '%windir%\SystemApps\Microsoft.MicrosoftEdge_8wekyb3d8bbwe\MicrosoftEdge.exe'
+  - 'microsoftupdate.exe'
+  - '%windir%\System32\BackgroundTransferHost.exe'
+win_fw_web_ports:
+  - 80
+  - 443
+  - 8080
+
+## FIXME! localized rule name...
+win_fw_rules_disable:
+  - Xbox
+  - Xbox Game UI
+  - Xbox Identity Provider
+  - Cortana
+  - Candy Crush Soda Saga
+win_fw_prefix: "A-Ansible"
