@@ -5,6 +5,7 @@ win_firewall: true
 #win_firewall: true
 #win_fw_default_action: 'allow'
 win_fw_default_action: 'block'
+harden_win_msoffice_version_short: "16"
 win_fw_program_allowed_out_public:
   - '%ProgramFiles%\bitbeans\Simple DNSCrypt\dnscrypt-proxy\dnscrypt-proxy.exe'
   - '%ProgramFiles%\bitbeans\Simple DNSCrypt\dnscrypt-proxy\dnscrypt-proxy-secondary.exe'
@@ -49,6 +50,7 @@ win_fw_program_blocked_out_public:
 ##  https://social.technet.microsoft.com/Forums/windows/en-US/9d0f3230-2ead-47ee-9233-d5e94df98b90/using-a-wildcard-path-for-a-firewall-program-exception?forum=w7itprosecurity
 ##  http://www.404techsupport.com/2009/01/09/windows-firewall-exceptions-through-group-policy/
 #  - '%UserProfile%\*.*'
+
 win_fw_ports_allowed_out_public: []
 win_fw_ports_blocked_out_public:
   - 25
