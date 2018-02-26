@@ -74,7 +74,7 @@ win_fw_ports_blocked_in_public:
   - 123
   - 6881-6889
 win_fw_program_allowed_web_out_public:
-  - '%ProgramFiles\firefox.exe'
+  - '%ProgramFiles%\firefox.exe'
   - '%ProgramFiles%\Google\Chrome\Application\chrome.exe'
   - '%windir%\SystemApps\Microsoft.MicrosoftEdge_8wekyb3d8bbwe\MicrosoftEdge.exe'
   - 'microsoftupdate.exe'
