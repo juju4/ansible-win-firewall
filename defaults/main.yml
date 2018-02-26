@@ -5,7 +5,7 @@ win_firewall: true
 #win_firewall: true
 #win_fw_default_action: 'allow'
 win_fw_default_action: 'block'
-harden_win_msoffice_version_short: "16"
+win_msoffice_version_short: "16"
 win_fw_program_allowed_out_public:
   - '%ProgramFiles%\bitbeans\Simple DNSCrypt\dnscrypt-proxy\dnscrypt-proxy.exe'
   - '%ProgramFiles%\bitbeans\Simple DNSCrypt\dnscrypt-proxy\dnscrypt-proxy-secondary.exe'
