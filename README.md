@@ -12,7 +12,9 @@ Ansible role to setup host firewall on windows system.
 
 ### Ansible
 It was tested on the following versions:
- * 2.4 (required since s/include:/include_tasks:/)
+ * 2.3
+ * 2.4 (Not working! [ansible#31576](https://github.com/ansible/ansible/issues/31576))
+ * 2.5b2
 
 ### Operating systems
 
