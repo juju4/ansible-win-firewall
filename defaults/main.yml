@@ -3,6 +3,12 @@
 ## Experimental. issue with ansible win_firewall_rule module
 win_firewall: true
 #win_firewall: true
+
+win_config: 'import'
+win_firewall_policy: policy.wfw
+
+# Currently broken ansible >2.3, https://github.com/ansible/ansible/issues/31576
+#win_config: 'rule'
 #win_fw_default_action: 'allow'
 win_fw_default_action: 'block'
 win_msoffice_version_short: "16"
@@ -32,7 +38,7 @@ win_fw_program_blocked_out_public:
   - '%SystemRoot%\SysWOW64\ftp.exe'
 ## https://securityinaction.wordpress.com/2016/04/24/windows-applocker-bypass-disclosed/
   - '%SystemRoot%\system32\regsvr32.exe'
-  - '%SystemRoot%\SysWOW64\regsvr64.exe'
+  - '%SystemRoot%\SysWOW64\regsvr32.exe'
 ## https://github.com/MHaggis/hunt-detect-prevent/blob/master/Prevention/Windows%20Firewall.md
   - '%SystemRoot%\system32\verclsid.exe'
   - '%SystemRoot%\syswow64\verclsid.exe'
