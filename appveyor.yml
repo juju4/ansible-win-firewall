@@ -87,7 +87,11 @@ test_script:
 after_test:
 - cmd: |
     %CYG_BASH% -lc 'ansible-playbook -i /cygdrive/c/projects/ansible-win-firewall/test/appveyor/inventory /cygdrive/c/projects/ansible-win-firewall/test/integration/default/default.yml $ANSIBLE_EXTRA_VARS'
-- ps: Get-NetFirewallRule
+- ps: |
+    Get-NetFirewallProfile -Name Domain | Get-NetFirewallRule
+    Get-NetFirewallProfile -Name Private | Get-NetFirewallRule
+    Get-NetFirewallProfile -Name Public | Get-NetFirewallRule
+    True
 
 notifications:
 - provider: Email
