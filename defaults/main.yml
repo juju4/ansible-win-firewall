@@ -1,5 +1,8 @@
 ---
 
+win_temp_dir: 'c:\Program Files\ansible'
+win_log_dir: 'c:\ProgramData\ansible\log'
+
 ## Experimental. issue with ansible win_firewall_rule module
 win_firewall: true
 #win_firewall: true
