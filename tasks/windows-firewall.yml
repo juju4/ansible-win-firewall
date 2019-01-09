@@ -152,4 +152,3 @@
     - netsh advfirewall set currentprofile logging maxfilesize 32767
     - netsh advfirewall set currentprofile logging droppedconnections enable
     - netsh advfirewall set currentprofile logging allowedconnections enable
-
