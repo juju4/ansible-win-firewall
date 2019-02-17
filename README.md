@@ -57,6 +57,11 @@ $ ansible -i .vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory -
 
 ## FAQ
 
+## References
+
+* [Demystifying the Windows Firewall  Learn how to irritate attackers without crippling your network, Oct 2016](https://channel9.msdn.com/Events/Ignite/New-Zealand-2016/M377)
+* [Endpoint Isolation with the Windows Firewall, Apr 2018](https://medium.com/@cryps1s/endpoint-isolation-with-the-windows-firewall-462a795f4cfb)
+
 ## License
 
 BSD 2-clause
