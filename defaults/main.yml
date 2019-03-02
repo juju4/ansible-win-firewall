@@ -19,6 +19,7 @@ win_fw_program_allowed_out_public:
   - '%ProgramFiles%\bitbeans\Simple DNSCrypt\dnscrypt-proxy\dnscrypt-proxy.exe'
   - '%ProgramFiles%\bitbeans\Simple DNSCrypt\dnscrypt-proxy\dnscrypt-proxy-secondary.exe'
 win_fw_program_blocked_out_public:
+# Note: MsOffice needs network to validate licenses. might need to comment or delay those rules depending on your context.
   - "C:\\Program Files\\Microsoft Office\\Office{{ win_msoffice_version_short }}\\winword.exe"
   - "C:\\Program Files\\Microsoft Office\\Office{{ win_msoffice_version_short }}\\excel.exe"
   - "C:\\Program Files\\Microsoft Office\\Office{{ win_msoffice_version_short }}\\powerpoint.exe"
