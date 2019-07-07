@@ -113,16 +113,6 @@
     protocol: TCP
     action: allow
     direction: Out
-- name: Firewall | allow outgoing ports
-  win_firewall_rule:
-    name: "{{ win_fw_prefix }}-allow-outgoing-{{ item }}"
-    enable: yes
-    state: present
-    localport: any
-    remoteport: "{{ item }}"
-    protocol: TCP
-    action: allow
-    direction: Out
     profile: Public
   with_items: "{{ win_fw_ports_allowed_out_public }}"
 #  ignore_errors: true
