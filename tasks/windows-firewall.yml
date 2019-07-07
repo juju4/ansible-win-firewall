@@ -139,7 +139,6 @@
     action: allow
     state: present
     enable: no
-    force: yes
   with_items: "{{ win_fw_rules_disable }}"
 #  ignore_errors: true
 
