@@ -28,21 +28,34 @@
     - PublicProfile
 
 ## FIXME! win_firewall_rule not idempotent
-- name: Firewall | allow svchost dns and ntp requests out
+- name: Firewall | allow svchost dns and ntp requests out - udp
   win_firewall_rule:
-    name: "{{ win_fw_prefix }}-allow-outgoing-svchost-{{ item }}"
+    name: "{{ win_fw_prefix }}-allow-outgoing-svchost-{{ item }}-udp"
     program: "%SystemRoot%\\System32\\svchost.exe"
     enable: yes
     state: present
     localport: any
     remoteport: "{{ item }}"
+    protocol: UDP
     action: allow
     direction: Out
   with_items:
     - 53
     - 123
-## FIXME! not idempotent. https://github.com/ansible/ansible-modules-extras/pull/2654 related?
-  ignore_errors: true
+
+- name: Firewall | allow svchost dns requests out - tcp
+  win_firewall_rule:
+    name: "{{ win_fw_prefix }}-allow-outgoing-svchost-{{ item }}-tcp"
+    program: "%SystemRoot%\\System32\\svchost.exe"
+    enable: yes
+    state: present
+    localport: any
+    remoteport: "{{ item }}"
+    protocol: TCP
+    action: allow
+    direction: Out
+  with_items:
+    - 53
 
 - name: Firewall | block outgoing program
   win_firewall_rule:
