@@ -110,6 +110,7 @@
     state: present
     localport: any
     remoteport: "{{ item }}"
+    protocol: TCP
     action: allow
     direction: Out
 - name: Firewall | allow outgoing ports
@@ -119,6 +120,7 @@
     state: present
     localport: any
     remoteport: "{{ item }}"
+    protocol: TCP
     action: allow
     direction: Out
     profile: Public
@@ -135,10 +137,9 @@
     remoteport: any
     action: block
     direction: In
-#    protocol: TCP
+    protocol: TCP
     profile: Public
   with_items: "{{ win_fw_ports_blocked_in_public }}"
-
 
 - debug: var=win_fw_rules_disable
 - name: Firewall | disable rules
