@@ -75,7 +75,7 @@
   loop_control:
     loop_var: outer_item
 
-- name: Firewall | block outgoing ports
+- name: Firewall | block outgoing ports - TCP
   win_firewall_rule:
     name: "{{ win_fw_prefix }}-block-outgoing-{{ item }}"
     enable: yes
@@ -84,11 +84,34 @@
     remoteport: "{{ item }}"
     action: block
     direction: Out
-#    protocol: TCP
+    protocol: TCP
     profile: Public
   with_items: "{{ win_fw_ports_blocked_out_public }}"
 #  ignore_errors: true
 
+- name: Firewall | block outgoing ports - UDP
+  win_firewall_rule:
+    name: "{{ win_fw_prefix }}-block-outgoing-{{ item }}"
+    enable: yes
+    state: present
+    localport: any
+    remoteport: "{{ item }}"
+    action: block
+    direction: Out
+    protocol: UDP
+    profile: Public
+  with_items: "{{ win_fw_ports_blocked_out_public }}"
+#  ignore_errors: true
+
+- name: Firewall | allow outgoing ports
+  win_firewall_rule:
+    name: "{{ win_fw_prefix }}-allow-outgoing-{{ item }}"
+    enable: yes
+    state: present
+    localport: any
+    remoteport: "{{ item }}"
+    action: allow
+    direction: Out
 - name: Firewall | allow outgoing ports
   win_firewall_rule:
     name: "{{ win_fw_prefix }}-allow-outgoing-{{ item }}"
