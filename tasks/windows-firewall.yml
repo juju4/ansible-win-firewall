@@ -77,7 +77,7 @@
 
 - name: Firewall | block outgoing ports - TCP
   win_firewall_rule:
-    name: "{{ win_fw_prefix }}-block-outgoing-{{ item }}"
+    name: "{{ win_fw_prefix }}-block-outgoing-{{ item }}-tcp"
     enable: yes
     state: present
     localport: any
@@ -91,7 +91,7 @@
 
 - name: Firewall | block outgoing ports - UDP
   win_firewall_rule:
-    name: "{{ win_fw_prefix }}-block-outgoing-{{ item }}"
+    name: "{{ win_fw_prefix }}-block-outgoing-{{ item }}-udp"
     enable: yes
     state: present
     localport: any
