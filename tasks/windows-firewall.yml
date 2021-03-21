@@ -30,7 +30,7 @@
 ## FIXME! win_firewall_rule not idempotent
 - name: Firewall | allow svchost dns and ntp requests out - udp
   win_firewall_rule:
-    name: "{{ win_fw_prefix }}-allow-outgoing-svchost-{{ item }}-udp"
+    name: "{{ win_fw_prefix }}-allow-outgoing-svchost-{{ item }}-udp"
     program: "%SystemRoot%\\System32\\svchost.exe"
     enable: yes
     state: present
@@ -45,7 +45,7 @@
 
 - name: Firewall | allow svchost dns requests out - tcp
   win_firewall_rule:
-    name: "{{ win_fw_prefix }}-allow-outgoing-svchost-{{ item }}-tcp"
+    name: "{{ win_fw_prefix }}-allow-outgoing-svchost-{{ item }}-tcp"
     program: "%SystemRoot%\\System32\\svchost.exe"
     enable: yes
     state: present
@@ -66,10 +66,10 @@
     localport: any
     action: block
     direction: Out
-#    protocol: TCP
+    # protocol: TCP
     profile: Public
   with_items: "{{ win_fw_program_blocked_out_public }}"
-#  ignore_errors: true
+  # ignore_errors: true
 
 - name: Firewall | allow outgoing program
   win_firewall_rule:
@@ -80,7 +80,7 @@
     direction: Out
     profile: Public
   with_items: "{{ win_fw_program_allowed_out_public }}"
-#  ignore_errors: true
+  # ignore_errors: true
 
 - name: Firewall | allow outgoing web program
   include: "windows-firewall-unit.yml action=allow direction=Out profile=Public ports={{ win_fw_web_ports }} program={{ outer_item }}"
@@ -100,7 +100,7 @@
     protocol: TCP
     profile: Public
   with_items: "{{ win_fw_ports_blocked_out_public }}"
-#  ignore_errors: true
+  # ignore_errors: true
 
 - name: Firewall | block outgoing ports - UDP
   win_firewall_rule:
@@ -114,7 +114,7 @@
     protocol: UDP
     profile: Public
   with_items: "{{ win_fw_ports_blocked_out_public }}"
-#  ignore_errors: true
+  # ignore_errors: true
 
 - name: Firewall | allow outgoing ports
   win_firewall_rule:
@@ -128,7 +128,7 @@
     direction: Out
     profile: Public
   with_items: "{{ win_fw_ports_allowed_out_public }}"
-#  ignore_errors: true
+  # ignore_errors: true
 
 ## FIXME! 'Unexpected failure during module execution.', 'AttributeError: 'int' object has no attribute 'rfind''
 - name: Firewall | block incoming ports
@@ -144,7 +144,8 @@
     profile: Public
   with_items: "{{ win_fw_ports_blocked_in_public }}"
 
-- debug: var=win_fw_rules_disable
+- name: Debug | win_fw_rules_disable
+  debug: var=win_fw_rules_disable
 - name: Firewall | disable rules
   win_firewall_rule:
     name: "{{ item }}"
@@ -152,29 +153,29 @@
     action: allow
     state: present
     enable: no
-  with_items: "{{ win_fw_rules_disable }}"
-#  ignore_errors: true
+  with_items: "{{ win_fw_rules_disable }}"
+  # ignore_errors: true
 
 
 ## FIXME! default rule
 ## does not seem supported by ansible: http://docs.ansible.com/ansible/win_firewall_rule_module.html
 ## rule order(block, after allow, after default): https://technet.microsoft.com/en-us/library/cc755191(v=ws.10).aspx
-#- name: Last Firewall rule (~default)
-#  win_firewall_rule:
-#    name: "{{ win_fw_prefix }}-default-rule-{{ win_fw_default_action }}"
-#    direction: "{{ item }}"
-#    enable: yes
-#    action: "{{ win_fw_default_action }}"
-#    state: present
-#  with_items:
-#    - in
-#    - out
+# - name: Last Firewall rule (~default)
+#   win_firewall_rule:
+#     name: "{{ win_fw_prefix }}-default-rule-{{ win_fw_default_action }}"
+#     direction: "{{ item }}"
+#     enable: yes
+#     action: "{{ win_fw_default_action }}"
+#     state: present
+#   with_items:
+#     - in
+#     - out
 
 - name: Firewall reconfigure logging
-  win_command: "{{ item }}"
+  win_command: "{{ item }}"
   with_items:
-#    - netsh advfirewall set currentprofile logging maxfilesize 4096
-## 'Log file size must be between 1 and 32767.'
+    # - netsh advfirewall set currentprofile logging maxfilesize 4096
+    ## 'Log file size must be between 1 and 32767.'
     - netsh advfirewall set currentprofile logging maxfilesize 32767
     - netsh advfirewall set currentprofile logging droppedconnections enable
     - netsh advfirewall set currentprofile logging allowedconnections enable

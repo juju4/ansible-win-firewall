@@ -5,21 +5,21 @@ win_log_dir: 'c:\ProgramData\ansible\log'
 
 ## Experimental. issue with ansible win_firewall_rule module
 win_firewall: true
-#win_firewall: true
+# win_firewall: true
 
 win_config: 'import'
 win_firewall_policy: policy.wfw
 
 # Currently broken ansible >2.3, https://github.com/ansible/ansible/issues/31576
-#win_config: 'rule'
-#win_fw_default_action: 'allow'
+# win_config: 'rule'
+# win_fw_default_action: 'allow'
 win_fw_default_action: 'block'
 win_msoffice_version_short: "16"
 win_fw_program_allowed_out_public:
   - '%ProgramFiles%\bitbeans\Simple DNSCrypt\dnscrypt-proxy\dnscrypt-proxy.exe'
   - '%ProgramFiles%\bitbeans\Simple DNSCrypt\dnscrypt-proxy\dnscrypt-proxy-secondary.exe'
 win_fw_program_blocked_out_public:
-# Note: MsOffice needs network to validate licenses. might need to comment or delay those rules depending on your context.
+  # Note: MsOffice needs network to validate licenses. might need to comment or delay those rules depending on your context.
   - "C:\\Program Files\\Microsoft Office\\Office{{ win_msoffice_version_short }}\\winword.exe"
   - "C:\\Program Files\\Microsoft Office\\Office{{ win_msoffice_version_short }}\\excel.exe"
   - "C:\\Program Files\\Microsoft Office\\Office{{ win_msoffice_version_short }}\\powerpoint.exe"
@@ -42,16 +42,16 @@ win_fw_program_blocked_out_public:
   - '%SystemRoot%\SysWOW64\conhost.exe'
   - '%SystemRoot%\system32\ftp.exe'
   - '%SystemRoot%\SysWOW64\ftp.exe'
-## https://securityinaction.wordpress.com/2016/04/24/windows-applocker-bypass-disclosed/
+  ## https://securityinaction.wordpress.com/2016/04/24/windows-applocker-bypass-disclosed/
   - '%SystemRoot%\system32\regsvr32.exe'
   - '%SystemRoot%\SysWOW64\regsvr32.exe'
-## https://github.com/MHaggis/hunt-detect-prevent/blob/master/Prevention/Windows%20Firewall.md
+  ## https://github.com/MHaggis/hunt-detect-prevent/blob/master/Prevention/Windows%20Firewall.md
   - '%SystemRoot%\system32\verclsid.exe'
   - '%SystemRoot%\syswow64\verclsid.exe'
-## https://labs.nettitude.com/blog/fun-with-windows-binaries-application-whitelist-bypass-using-msiexec/
+  ## https://labs.nettitude.com/blog/fun-with-windows-binaries-application-whitelist-bypass-using-msiexec/
   - '%SystemRoot%\system32\msiexec.exe'
   - '%SystemRoot%\SysWOW64\msiexec.exe'
-# https://github.com/api0cradle/LOLBAS/blob/master/LOLBins.md
+  # https://github.com/api0cradle/LOLBAS/blob/master/LOLBins.md
   - '%SystemRoot%\system32\atbroker.exe'
   - '%SystemRoot%\SysWOW64\atbroker.exe'
   - '%SystemRoot%\system32\certutil.exe'
@@ -73,8 +73,8 @@ win_fw_program_blocked_out_public:
   - '%SystemRoot%\SysWOW64\extrac32.exe'
   - '%SystemRoot%\system32\expand.exe'
   - '%SystemRoot%\SysWOW64\expand.exe'
-#  - '%SystemRoot%\explorer.exe'
-#  - '%SystemRoot%\SysWOW64\explorer.exe'
+  # - '%SystemRoot%\explorer.exe'
+  # - '%SystemRoot%\SysWOW64\explorer.exe'
   - '%SystemRoot%\system32\findstr.exe'
   - '%SystemRoot%\SysWOW64\findstr.exe'
   - '%SystemRoot%\system32\forfiles.exe'
@@ -138,10 +138,10 @@ win_fw_program_blocked_out_public:
   - '%SystemRoot%\SysWOW64\wbem\wmic.exe'
   - '%SystemRoot%\system32\xwizard.exe'
   - '%SystemRoot%\SysWOW64\xwizard.exe'
-## does it work? accepted in ansible 2.3, nok in 2.4
-##  https://social.technet.microsoft.com/Forums/windows/en-US/9d0f3230-2ead-47ee-9233-d5e94df98b90/using-a-wildcard-path-for-a-firewall-program-exception?forum=w7itprosecurity
-##  http://www.404techsupport.com/2009/01/09/windows-firewall-exceptions-through-group-policy/
-#  - '%UserProfile%\*.*'
+  ## does it work? accepted in ansible 2.3, nok in 2.4
+  ##  https://social.technet.microsoft.com/Forums/windows/en-US/9d0f3230-2ead-47ee-9233-d5e94df98b90/using-a-wildcard-path-for-a-firewall-program-exception?forum=w7itprosecurity
+  ##  http://www.404techsupport.com/2009/01/09/windows-firewall-exceptions-through-group-policy/
+  # - '%UserProfile%\*.*'
 
 win_fw_ports_allowed_out_public: []
 win_fw_ports_blocked_out_public:
@@ -150,7 +150,7 @@ win_fw_ports_blocked_out_public:
   - 53
   - 123
   - 6881-6889
-## smb/llmnr?
+  ## smb/llmnr?
   - 137
   - 138
   - 5353
