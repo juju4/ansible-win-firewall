@@ -1,6 +1,3 @@
-[![Build Status - Master](https://travis-ci.org/juju4/ansible-win-firewall.svg?branch=master)](https://travis-ci.org/juju4/ansible-win-firewall)
-[![Build Status - Devel](https://travis-ci.org/juju4/ansible-win-firewall.svg?branch=devel)](https://travis-ci.org/juju4/ansible-win-firewall/branches)(Syntax Only)
-
 [![Appveyor - Master](https://ci.appveyor.com/api/projects/status/ie1enn168innvjon?svg=true)](https://ci.appveyor.com/project/juju4/ansible-win-firewall)
 ![Appveyor - Devel](https://ci.appveyor.com/api/projects/status/ie1enn168innvjon/branch/devel?svg=true)
 
