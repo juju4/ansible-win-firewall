@@ -1,5 +1,5 @@
-[![Appveyor - Master](https://ci.appveyor.com/api/projects/status/ie1enn168innvjon?svg=true)](https://ci.appveyor.com/project/juju4/ansible-win-firewall)
-![Appveyor - Devel](https://ci.appveyor.com/api/projects/status/ie1enn168innvjon/branch/devel?svg=true)
+[![Appveyor - Master](https://ci.appveyor.com/api/projects/status/ie1enn168innvjon/branch/master?svg=true)](https://ci.appveyor.com/project/juju4/ansible-win-firewall/branch/master)
+[![Appveyor - Devel](https://ci.appveyor.com/api/projects/status/ie1enn168innvjon/branch/devel?svg=true)](https://ci.appveyor.com/project/juju4/ansible-win-firewall/branch/devel)
 
 # Windows firewall ansible role
 
@@ -12,6 +12,8 @@ It was tested on the following versions:
  * 2.3
  * 2.4 (Not working! [ansible#31576](https://github.com/ansible/ansible/issues/31576))
  * 2.5b2 (Not working! [ansible#31576](https://github.com/ansible/ansible/issues/31576))
+ * 4.10.0
+ * 5.3.0
 
 ### Operating systems
 
@@ -25,7 +27,7 @@ For example
 ```
 - host: all
   roles:
-    - juju4.win-firewall
+    - juju4.win_firewall
 ```
 
 Run
@@ -43,7 +45,7 @@ See defaults/main.yml for full scope
 This role has a travis basic test (for github, syntax check only), Appveyor test and a Vagrantfile (test/vagrant).
 
 ```
-$ cd /path/to/roles/juju4.win-firewall/test/vagrant
+$ cd /path/to/roles/juju4.win_firewall/test/vagrant
 $ vagrant up
 $ vagrant provision
 $ vagrant destroy
