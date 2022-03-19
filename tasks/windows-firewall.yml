@@ -145,7 +145,7 @@
   with_items: "{{ win_fw_ports_blocked_in_public }}"
 
 - name: Debug | win_fw_rules_disable
-  debug: var=win_fw_rules_disable
+  ansible.builtin.debug: var=win_fw_rules_disable
 - name: Firewall | disable rules
   win_firewall_rule:
     name: "{{ item }}"
