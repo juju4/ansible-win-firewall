@@ -17,7 +17,7 @@
 ## https://technet.microsoft.com/en-us/library/ee693371(v=exchg.80).aspx
 ## not sure if apply to Win10?
 - name: Ensure Firewall is enabled for all profile
-  win_regedit:
+  ansible.windows.win_regedit:
     key: "HKLM:\\Software\\Policies\\Microsoft\\WindowsFirewall\\{{ item }}"
     value: EnableFirewall
     data: 1
@@ -29,7 +29,7 @@
 
 ## FIXME! win_firewall_rule not idempotent
 - name: Firewall | allow svchost dns and ntp requests out - udp
-  win_firewall_rule:
+  ansible.windows.win_firewall_rule:
     name: "{{ win_fw_prefix }}-allow-outgoing-svchost-{{ item }}-udp"
     program: "%SystemRoot%\\System32\\svchost.exe"
     enable: yes
@@ -44,7 +44,7 @@
     - 123
 
 - name: Firewall | allow svchost dns requests out - tcp
-  win_firewall_rule:
+  ansible.windows.win_firewall_rule:
     name: "{{ win_fw_prefix }}-allow-outgoing-svchost-{{ item }}-tcp"
     program: "%SystemRoot%\\System32\\svchost.exe"
     enable: yes
@@ -58,7 +58,7 @@
     - 53
 
 - name: Firewall | block outgoing program
-  win_firewall_rule:
+  ansible.windows.win_firewall_rule:
     name: "{{ win_fw_prefix }}-block-outgoing-{{ item | basename }}"
     program: "{{ item }}"
     enable: yes
@@ -72,7 +72,7 @@
   # ignore_errors: true
 
 - name: Firewall | allow outgoing program
-  win_firewall_rule:
+  ansible.windows.win_firewall_rule:
     name: "{{ win_fw_prefix }}-allow-outgoing-{{ item | basename }}"
     enable: yes
     state: present
@@ -83,13 +83,19 @@
   # ignore_errors: true
 
 - name: Firewall | allow outgoing web program
-  include: "windows-firewall-unit.yml action=allow direction=Out profile=Public ports={{ win_fw_web_ports }} program={{ outer_item }}"
+  ansible.builtin.include_tasks: windows-firewall-unit.yml
+  vars:
+    action: allow
+    direction: Out
+    profile: Public
+    ports: "{{ win_fw_web_ports }}"
+    program: "{{ outer_item }}"
   with_items: "{{ win_fw_program_allowed_web_out_public }}"
   loop_control:
     loop_var: outer_item
 
 - name: Firewall | block outgoing ports - TCP
-  win_firewall_rule:
+  ansible.windows.win_firewall_rule:
     name: "{{ win_fw_prefix }}-block-outgoing-{{ item }}-tcp"
     enable: yes
     state: present
@@ -103,7 +109,7 @@
   # ignore_errors: true
 
 - name: Firewall | block outgoing ports - UDP
-  win_firewall_rule:
+  ansible.windows.win_firewall_rule:
     name: "{{ win_fw_prefix }}-block-outgoing-{{ item }}-udp"
     enable: yes
     state: present
@@ -117,7 +123,7 @@
   # ignore_errors: true
 
 - name: Firewall | allow outgoing ports
-  win_firewall_rule:
+  ansible.windows.win_firewall_rule:
     name: "{{ win_fw_prefix }}-allow-outgoing-{{ item }}"
     enable: yes
     state: present
@@ -132,7 +138,7 @@
 
 ## FIXME! 'Unexpected failure during module execution.', 'AttributeError: 'int' object has no attribute 'rfind''
 - name: Firewall | block incoming ports
-  win_firewall_rule:
+  ansible.windows.win_firewall_rule:
     name: "{{ win_fw_prefix }}-block-incoming-{{ item }}"
     enable: yes
     state: present
@@ -145,9 +151,10 @@
   with_items: "{{ win_fw_ports_blocked_in_public }}"
 
 - name: Debug | win_fw_rules_disable
-  ansible.builtin.debug: var=win_fw_rules_disable
+  ansible.builtin.debug:
+    var: win_fw_rules_disable
 - name: Firewall | disable rules
-  win_firewall_rule:
+  ansible.windows.win_firewall_rule:
     name: "{{ item }}"
     direction: Out
     action: allow
@@ -161,7 +168,7 @@
 ## does not seem supported by ansible: http://docs.ansible.com/ansible/win_firewall_rule_module.html
 ## rule order(block, after allow, after default): https://technet.microsoft.com/en-us/library/cc755191(v=ws.10).aspx
 # - name: Last Firewall rule (~default)
-#   win_firewall_rule:
+#   ansible.windows.win_firewall_rule:
 #     name: "{{ win_fw_prefix }}-default-rule-{{ win_fw_default_action }}"
 #     direction: "{{ item }}"
 #     enable: yes
@@ -172,7 +179,7 @@
 #     - out
 
 - name: Firewall reconfigure logging
-  win_command: "{{ item }}"
+  ansible.windows.win_command: "{{ item }}"
   with_items:
     # - netsh advfirewall set currentprofile logging maxfilesize 4096
     ## 'Log file size must be between 1 and 32767.'

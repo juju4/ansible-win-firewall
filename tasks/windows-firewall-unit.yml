@@ -1,7 +1,7 @@
 ---
 
 - name: Firewall | add rule for {{ program }}
-  win_firewall_rule:
+  ansible.windows.win_firewall_rule:
     name: "{{ win_fw_prefix }}-{{ action }}-{{ direction }}-{{ program | win_basename }}-{{ item }}"
     program: "{{ program }}"
     enable: yes
