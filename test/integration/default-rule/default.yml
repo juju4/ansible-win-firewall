@@ -1,8 +1,9 @@
 ---
 
-- hosts: all
+- name: Test play
+  hosts: all
   become_method: runas
   vars:
-    - win_config: 'rule'
+    win_config: 'rule'
   roles:
-    - juju4.win-firewall
+    - juju4.win_firewall
